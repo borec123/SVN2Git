@@ -1,2 +1,2 @@
-# SVN2Git
-Svn repository to Git migration including all history.
+# Demos
+Demos - simple Java maven projects.
