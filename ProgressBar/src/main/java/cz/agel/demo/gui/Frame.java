@@ -42,6 +42,7 @@ public class Frame extends JFrame {
 	JTable table = new JTable();
 	JLabel label = new JLabel();
 	JFormattedTextField textField;
+	JButton buttonStart = new JButton();
 	JButton buttonGenerateExcel = new JButton();
 	JButton buttonEnd = new JButton();
 	JButton buttonStop = new JButton();
@@ -76,12 +77,14 @@ public class Frame extends JFrame {
 		textField.setPreferredSize(new Dimension(50, textField.getPreferredSize().height));
 		textField.setToolTipText("Vlo\u017E \u010D\u00EDslo a zm\u00E1\u010Dkni Enter.");
 		
+		buttonStart.setText("Zah\u00E1jit v\u00FDpo\u010Det prvo\u010D\u00EDsel");
 		buttonGenerateExcel.setText("Generovat excel");
 		buttonEnd.setText("Ukon\u010Dit aplikaci");
 		buttonStop.setText("Ukon\u010Dit v\u00FDpo\u010Det");
+		panelActions.add(buttonStart);
+		panelActions.add(buttonStop);
 		panelActions.add(label);
 		panelActions.add(textField);
-		panelActions.add(buttonStop);
 		panelActions.add(buttonGenerateExcel);
 		panelActions.add(buttonEnd);
 		add(panelActions, BorderLayout.SOUTH);
@@ -99,6 +102,16 @@ public class Frame extends JFrame {
 				textField.select(0, textField.getText().length() - 1);
 			}
 		});*/
+		buttonStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableModel.startCountingPrimeNumbers();
+			}
+		});
+		buttonStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableModel.interruptCountingPrimeNumbers();
+			}
+		});
 		buttonEnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
