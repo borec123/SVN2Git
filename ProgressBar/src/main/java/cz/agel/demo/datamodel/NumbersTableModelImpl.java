@@ -6,50 +6,23 @@ import cz.agel.demo.Constants;
 import cz.agel.demo.helper.Helper;
 import cz.agel.demo.primenumbers.AbstractObservableNumberDetector;
 import cz.agel.demo.primenumbers.BruteForcePrimeNumberDetectorImpl;
+import cz.agel.demo.primenumbers.ObservablePrimeNumberDetectorImpl;
 
-public class ApplicationDataModelImpl extends AbstractTableModel implements ApplicationDataModel {
+public class NumbersTableModelImpl extends AbstractTableModel implements NumbersDataModel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BruteForcePrimeNumberDetectorImpl detector = BruteForcePrimeNumberDetectorImpl.getInstance();
+	//private BruteForcePrimeNumberDetectorImpl detector = BruteForcePrimeNumberDetectorImpl.getInstance();
+	private ObservablePrimeNumberDetectorImpl detector = ObservablePrimeNumberDetectorImpl.getInstance();
 
-	public ApplicationDataModelImpl() {
+	public NumbersTableModelImpl() {
 		super();
 		setStartingNumber(1);
 	}
 
 	private int[][] numbers = new int[Constants.COLUMN_COUNT][Constants.ROW_COUNT];
 
-	
-	private class StatusReadingThread extends Thread {
-		
-		private AbstractObservableNumberDetector observable;
 
-		public StatusReadingThread(AbstractObservableNumberDetector observable) {
-			this.observable = observable;
-		}
-		
-		public void run() {
-			
-			while(!observable.isFinished() && !observable.isInterrupted()) {
-				if(observable.isStarted()) {
-					System.out.println("Status: " + observable.getProgressStatus() + "%");
-				}
-				
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					
-					e.printStackTrace();
-				}
-			}
-			if(observable.isFinished()) {
-				System.out.println("Status: 100%");
-			}
-			
-		}
-		
-	}
 	
 	public int getColumnCount() {
 		
@@ -88,19 +61,6 @@ public class ApplicationDataModelImpl extends AbstractTableModel implements Appl
 		return detector.isPrimeNumber(number);
 	}
 
-
-	public void startCountingPrimeNumbers() {
-		StatusReadingThread reader = new StatusReadingThread(detector);
-		detector.start();
-		reader.start();
-		
-	}
-
-
-	public void interruptCountingPrimeNumbers() {
-		detector.interrupt();
-		
-	}
 
 
 }

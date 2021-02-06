@@ -13,12 +13,12 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Font;
 
 import cz.agel.demo.Constants;
-import cz.agel.demo.datamodel.ApplicationDataModel;
+import cz.agel.demo.datamodel.NumbersDataModel;
 
 public class ExcelExporter {
 
 
-	public static void export(File f, ApplicationDataModel dataModel) throws IOException {
+	public static void export(File f, NumbersDataModel dataModel) throws IOException {
 		
         int startingNumber = dataModel.getStartingNumber();
 		

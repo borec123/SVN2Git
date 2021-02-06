@@ -8,15 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import cz.agel.demo.datamodel.ApplicationDataModel;
+import cz.agel.demo.datamodel.NumbersDataModel;
 
 public class PrimeNumberCellRenderer extends DefaultTableCellRenderer {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ApplicationDataModel tableModel = null;
+	private NumbersDataModel tableModel = null;
 
-	public PrimeNumberCellRenderer(ApplicationDataModel tableModel) {
+	public PrimeNumberCellRenderer(NumbersDataModel tableModel) {
 		super();
 		setHorizontalAlignment(JLabel.RIGHT);
 		this.tableModel = tableModel;

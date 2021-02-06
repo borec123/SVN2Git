@@ -21,10 +21,13 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.NumberFormatter;
 
 import cz.agel.demo.Constants;
-import cz.agel.demo.datamodel.ApplicationDataModelImpl;
+import cz.agel.demo.datamodel.NumbersTableModelImpl;
+import cz.agel.demo.datamodel.ProgressTableModel;
 import cz.agel.demo.export.ExcelExporter;
 import cz.agel.demo.helper.Helper;
 
@@ -46,7 +49,9 @@ public class Frame extends JFrame {
 	JButton buttonGenerateExcel = new JButton();
 	JButton buttonEnd = new JButton();
 	JButton buttonStop = new JButton();
-	ApplicationDataModelImpl tableModel = new ApplicationDataModelImpl();
+	NumbersTableModelImpl tableModel = new NumbersTableModelImpl();
+	ProgressTableModel progressModel = new ProgressTableModel();
+	
 	JFileChooser fileChooser = new JFileChooser();
 
 	@Override
@@ -67,8 +72,10 @@ public class Frame extends JFrame {
 		setLayout(new BorderLayout());
 		panelTable.setLayout(new BorderLayout());
 		panelTable.setBorder(new TitledBorder(Constants.TABLE_LABEL));
+		
 		table.setModel(tableModel);
 		table.setDefaultRenderer(Object.class, new PrimeNumberCellRenderer(tableModel));
+		
 		panelTable.add(table, BorderLayout.CENTER);
 		add(panelTable, BorderLayout.CENTER);
 		label.setText("\u010C\u00EDsla od:");
@@ -104,12 +111,16 @@ public class Frame extends JFrame {
 		});*/
 		buttonStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableModel.startCountingPrimeNumbers();
+				if(table.getModel() != progressModel) {
+					table.setModel(progressModel);
+					table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+				}
+				progressModel.startCountingPrimeNumbers();
 			}
 		});
 		buttonStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableModel.interruptCountingPrimeNumbers();
+				progressModel.interruptCountingPrimeNumbers();
 			}
 		});
 		buttonEnd.addActionListener(new ActionListener() {
@@ -189,6 +200,10 @@ public class Frame extends JFrame {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			try {
+				if(table.getModel() != tableModel) {
+					table.setModel(tableModel);
+					table.setDefaultRenderer(Object.class, new PrimeNumberCellRenderer(tableModel));
+				}
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					tableModel
 							.setStartingNumber((Integer) textField.getValue());

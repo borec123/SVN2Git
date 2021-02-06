@@ -1,8 +1,15 @@
 package cz.agel.demo.primenumbers;
 
+import java.util.Arrays;
+
 public class BruteForcePrimeNumberDetectorImpl extends AbstractObservableNumberDetector {
 
-	private static BruteForcePrimeNumberDetectorImpl instance = null;
+	private static final BruteForcePrimeNumberDetectorImpl instance = new BruteForcePrimeNumberDetectorImpl();
+	
+	private BruteForcePrimeNumberDetectorImpl() { 
+		super();
+		Arrays.fill(bitmap, Boolean.TRUE);
+	}
 
 	@Override
 	protected void initializePrimeNumberBitmap() {
@@ -48,10 +55,6 @@ public class BruteForcePrimeNumberDetectorImpl extends AbstractObservableNumberD
 	}
 
 	public static BruteForcePrimeNumberDetectorImpl getInstance() {
-		
-		if(instance == null) {
-			instance = new BruteForcePrimeNumberDetectorImpl();
-		}
 		
 		return instance;
 	}

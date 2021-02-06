@@ -10,6 +10,7 @@ public class Main {
 		
 		char ch = '\u039A';
 	      System.out.println(ch);
+	      System.out.println(Integer.MAX_VALUE);
 	      
 	      
 		SwingUtilities.invokeLater(new Runnable() {
