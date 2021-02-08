@@ -7,7 +7,7 @@ public class Constants {
 	 * Max value for prime number generator: {@link cz.agel.demo.primenumbers.PrimeNumberDetector}.
 	 */
 	//public static final int RANGE = 300100; //--- Max value for brute force.
-	public static final int RANGE = 214748364;  //2147483647;
+	public static final int RANGE = 1073741823;  // -- 2147483647(maxint) / 2;
 	
 	/**
 	 * Column count in the table of prime numbers.

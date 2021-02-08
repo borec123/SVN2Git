@@ -6,11 +6,8 @@ import cz.agel.demo.gui.Frame;
 
 public class Main {
 	public static void main(String[] args) {
-		// schedule this for the event dispatch thread (edt)
-		
-		char ch = '\u039A';
-	      System.out.println(ch);
-	      System.out.println(Integer.MAX_VALUE);
+
+	      System.out.println(Integer.MAX_VALUE / 2);
 	      
 	      
 		SwingUtilities.invokeLater(new Runnable() {

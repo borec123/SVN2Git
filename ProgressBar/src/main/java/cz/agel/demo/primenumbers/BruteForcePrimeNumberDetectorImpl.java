@@ -8,7 +8,6 @@ public class BruteForcePrimeNumberDetectorImpl extends AbstractObservableNumberD
 	
 	private BruteForcePrimeNumberDetectorImpl() { 
 		super();
-		Arrays.fill(bitmap, Boolean.TRUE);
 	}
 
 	@Override
