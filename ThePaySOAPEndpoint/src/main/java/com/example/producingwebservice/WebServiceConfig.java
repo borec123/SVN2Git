@@ -30,15 +30,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	}
 
 
-	@Bean(name = "countries")
+	@Bean(name = "payments")
 	public Wsdl11Definition  defaultWsdl11Definition(XsdSchema countriesSchema) {
 		
-		  DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		  wsdl11Definition.setPortTypeName("CountriesPort");
-		  wsdl11Definition.setLocationUri("/ws"); 
-		  wsdl11Definition.setTargetNamespace(DEMO_URI);
-		  wsdl11Definition.setSchema(countriesSchema);
-
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("PaymentsPort");
+		wsdl11Definition.setLocationUri("/ws"); 
+		wsdl11Definition.setTargetNamespace(DEMO_URI);
+		wsdl11Definition.setSchema(countriesSchema);
 		
 		return wsdl11Definition;
 	}

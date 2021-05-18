@@ -35,29 +35,40 @@ public class PaymentEndpoint {
 
 
 	private void processPayments(List<Payment> payments) {
+		
+		if(payments == null) {
+			return;
+		}
+		
 		payments.forEach(p -> System.out.println(p.getAccountNumber() + ", amount: "
 		+ p.getAmount() + ", status: " + p.getStatus() + ", error: " + p.getErrorDescription()));
 		
 		for (Payment payment : payments) {
-			ThePayPaymentState state = ThePayPaymentState.valueOf(payment.getStatus());
-			switch(state) {
-			case SUCCESSFULLY_SENT:
-				// Completed
-				break;
-			case CANCELED:
-			case REJECTED_BY_BANK:
-			case BOUNCED_BACK:
-			case RECLAIMED:
-			case RECLAIMED_RETURNED_BY_CUSTOMER:
-			case RECLAIMED_UNSUCCESSFULLY:
-			case RETURNED_BY_CUSTOMER:
+			try {
+				ThePayPaymentState state = ThePayPaymentState.getByStateNumber(payment.getStatus());
+				switch(state) {
+				case SUCCESSFULLY_SENT:
+					// Completed
+					System.out.println("Payment is completed.");
+					break;
+				case CANCELED:
+				case REJECTED_BY_BANK:
+				case BOUNCED_BACK:
+				case RECLAIMED:
+				case RECLAIMED_RETURNED_BY_CUSTOMER:
+				case RECLAIMED_UNSUCCESSFULLY:
+				case RETURNED_BY_CUSTOMER:
+					// Error
+					System.out.println("Payment is in Error.");
+					break;
+				}
+			}
+			catch(Exception ex) {
+				System.out.println(ex.getLocalizedMessage());
 				// Error
-				break;
+				System.out.println("Payment is in Error.");
 			}
 		}
-		
-
-		
 		
 	}
 }
