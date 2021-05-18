@@ -1,0 +1,1 @@
+curl --header "content-type: text/xml" -d @request.xml http://ec5089eb254d.ngrok.io:80/ws

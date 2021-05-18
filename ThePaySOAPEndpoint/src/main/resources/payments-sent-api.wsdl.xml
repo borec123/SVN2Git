@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+			 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			 xmlns:tns="https://www.thepay.cz/sender-gate/api/payments-sent-api.wsdl"
+			 targetNamespace="https://www.thepay.cz/sender-gate/api/payments-sent-api.wsdl">
+
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+				xmlns:tns="https://www.thepay.cz/sender-gate/api/payments-sent-api.wsdl"
+				targetNamespace="https://www.thepay.cz/sender-gate/api/payments-sent-api.wsdl">
+
+			<element name="sentPaymentsRequest">
+				<complexType>
+					<all>
+						<element name="merchantId"
+								 type="tns:id" />
+						<element name="accountId"
+								 type="tns:id" />
+						<element name="payments"
+								 type="tns:payments" />
+						<element name="signature"
+								 type="tns:signature" />
+					</all>
+				</complexType>
+			</element>
+			<element name="sentPaymentsResponse">
+				<complexType>
+					<all>
+						<element name="status"
+								 type="tns:status" />
+					</all>
+				</complexType>
+			</element>
+
+			<complexType name="payments">
+				<sequence>
+					<element name="payment"
+							 type="tns:payment"
+							 minOccurs="1"
+							 maxOccurs="unbounded"
+							/>
+				</sequence>
+			</complexType>
+			<complexType name="payment">
+				<all>
+					<element name="accountPrefix"
+							 type="tns:accountPrefix"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="accountNumber"
+							 type="tns:accountNumber"
+							 minOccurs="1"
+							 nillable="false" />
+					<element name="bankCode"
+							 type="tns:bankCode"
+							 minOccurs="1"
+							 nillable="false" />
+					<element name="amount"
+							 type="tns:price"
+							 minOccurs="1"
+							 nillable="false" />
+					<element name="currency"
+							 type="tns:id"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="vs"
+							 type="tns:vs"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="ss"
+							 type="tns:ss"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="ks"
+							 type="tns:ks"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="merchantData"
+							 type="tns:merchantData"
+							 minOccurs="1"
+							 nillable="false" />
+					<element name="description"
+							 type="string"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="merchantDescription"
+							 type="string"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="email"
+							 type="string"
+							 minOccurs="0"
+							 nillable="true" />
+					<element name="status"
+							 type="tns:status"
+							 minOccurs="1"
+							 nillable="false" />
+					<element name="errorDescription"
+							 type="string"
+							 minOccurs="1"
+							 nillable="false" />
+				</all>
+			</complexType>
+
+			<simpleType name="id">
+				<restriction base="positiveInteger" />
+			</simpleType>
+			<simpleType name="signature">
+				<restriction base="token">
+					<minLength value="32" />
+					<maxLength value="32" />
+				</restriction>
+			</simpleType>
+			<simpleType name="accountPrefix">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="accountNumber">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="bankCode">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="price">
+				<restriction base="decimal">
+					<minInclusive value="0" />
+				</restriction>
+			</simpleType>
+			<simpleType name="vs">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="ks">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="ss">
+				<restriction base="token" />
+			</simpleType>
+			<simpleType name="merchantData">
+				<restriction base="string" />
+			</simpleType>
+			<simpleType name="status">
+				<restriction base="string" />
+			</simpleType>
+
+		</schema>
+	</types>
+
+	<message name="sentPaymentsRequest">
+		<part name="parameters" element="tns:sentPaymentsRequest"/>
+	</message>
+
+	<message name="sentPaymentsResponse">
+		<part name="parameters" element="tns:sentPaymentsResponse"/>
+	</message>
+
+	<portType name="ThePaySenderSentPaymentsApi_PortType">
+
+		<operation name="sentPayments">
+			<input message="tns:sentPaymentsRequest" />
+			<output message="tns:sentPaymentsResponse" />
+		</operation>
+
+	</portType>
+
+	<binding name="ThePaySenderSentPaymentsApi_Binding" type="tns:ThePaySenderSentPaymentsApi_PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<operation name="sentPayments">
+			<soap:operation soapAction="sentPayments" />
+			<input>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+	</binding>
+
+	<service name="ThePaySenderSentPaymentsApi">
+		<documentation>WSDL file for sending payments by ThePay sending gate.</documentation>
+		<port name="ThePaySenderSentPaymentsApi_Port" binding="tns:ThePaySenderSentPaymentsApi_Binding">
+			<soap:address location="https://www.thepay.cz/sender-gate/api/payments-sent/?v=2" />
+		</port>
+	</service>
+
+</definitions>
