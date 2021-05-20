@@ -26,7 +26,7 @@ public enum ThePayPaymentState {
     	Optional<ThePayPaymentState> state = Arrays.stream(values())  
     			.filter(s -> s.stateNumber.equals(value))
                 .findFirst();
-    	if(state.isEmpty()) {
+    	if(!state.isPresent()) {
     		throw new IllegalArgumentException("No such ThePay payment state: " + value);
     	}
 		return state.get();

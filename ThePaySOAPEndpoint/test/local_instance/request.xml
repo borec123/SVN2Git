@@ -1,0 +1,43 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="https://www.thepay.cz/sender-demo-gate/api/payments-sent-api-demo.wsdl">
+   <SOAP-ENV:Body>
+      <ns1:sentPaymentsRequest>
+         <merchantId>1</merchantId>
+         <accountId>1</accountId>
+         <payments>
+            <payment>
+               <accountPrefix>705</accountPrefix>
+               <accountNumber>262051158</accountNumber>
+               <bankCode>0100</bankCode>
+               <amount>123.45</amount>
+               <currency>1</currency>
+               <vs>1234567890</vs>
+               <ss>0987654321</ss>
+               <ks>999</ks>
+               <merchantData>merchant-data-123</merchantData>
+               <description xsi:nil="true"/>
+               <merchantDescription>payment test</merchantDescription>
+               <email>test@thepay.cz</email>
+               <status>2</status>
+               <errorDescription>error</errorDescription>
+            </payment>
+            <payment>
+               <accountPrefix>705</accountPrefix>
+               <accountNumber>262051158</accountNumber>
+               <bankCode>0100</bankCode>
+               <amount>76554</amount>
+               <currency>1</currency>
+               <vs>99887</vs>
+               <ss>999999</ss>
+               <ks>998</ks>
+               <merchantData>124</merchantData>
+               <description>platba 2</description>
+               <merchantDescription>platba 2</merchantDescription>
+               <email>test@thepay.cz</email>
+               <status>4</status>
+               <errorDescription>sending error</errorDescription>
+            </payment>
+         </payments>
+<signature>c762a33e642ce1bc3b053cbb22595ef6dbfc2419eeccb3feaad3275c94d2caab</signature>
+      </ns1:sentPaymentsRequest>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
