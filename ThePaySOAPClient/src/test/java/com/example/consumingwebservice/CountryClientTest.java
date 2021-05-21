@@ -1,20 +1,30 @@
 package com.example.consumingwebservice;
 
-import java.math.BigInteger;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
-
-import com.example.consumingwebservice.wsdl.Payment;
-import com.example.consumingwebservice.wsdl.SendPaymentsResponse;
 
 public class CountryClientTest {
 
 	@Test
-	void testMessage() {
-		CountryClient quoteClient = new CountryClient();
-		Payment payment = PaymentFactory.createPayment("1661011", "0800", 100.00, "12345");
-		SendPaymentsResponse response = quoteClient.sendPayment(payment , BigInteger.ONE, BigInteger.ONE);
-		System.out.println("Status: " + response.getStatus());
+	void testRounding() {
+		
+		
+		System.out.printf(Locale.US, "%.02f", 3.0);
+		assertEquals("3.00", String.format(Locale.US, "%.02f", 3.0));
+		
+		System.out.println();
+		
+		System.out.printf(Locale.US, "%.02f", 3.009);
+		assertEquals("3.01", String.format(Locale.US, "%.02f", 3.009));
+		
+		System.out.println();
+
+		System.out.printf(Locale.US, "%.02f", 3.011);
+		assertEquals("3.01", String.format(Locale.US, "%.02f", 3.011));
+		
 	}
 	
 	

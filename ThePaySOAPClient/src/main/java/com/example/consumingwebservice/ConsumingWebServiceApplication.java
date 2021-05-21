@@ -1,7 +1,12 @@
 
 package com.example.consumingwebservice;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,19 +24,37 @@ public class ConsumingWebServiceApplication {
 	}
 
 	@Bean
-	CommandLineRunner lookup(CountryClient quoteClient) {
+	CommandLineRunner lookup(SOAPClient quoteClient) {
 		return args -> {
-			String country = "Spain";
-
-			if (args.length > 0) {
-				country = args[0];
-			}
-			Payment payment = PaymentFactory.createPayment("1661011", "0800", 100.00, "12345");
-			SendPaymentsResponse response = quoteClient.sendPayment(payment , BigInteger.ONE, BigInteger.ONE);
-			System.out.println("Status: " + response.getStatus());
-			System.out.println("Err desc: " + response.getErrorDescription());
-
+			
+			Payment payment = new PaymentBuilder("7927781", "0710", BigDecimal.valueOf(100.00), "12345")
+					.setAccountPrefix("1011")
+					.setCurrency(BigInteger.ONE)
+					.setVs("123")
+					.setSs("123")
+					.setKs("123")
+					.setDescription("asdgfsdfag")
+					.setMerchantDescription("asdgfsdfag")
+					.setEmail("aa@seznam.cz")
+					.build();
+			
+			Payment payment2 = new PaymentBuilder("1661011", "0800", BigDecimal.valueOf(101.009), "12345")
+					.build();
+			
+			send(Collections.singletonList(payment), quoteClient);
+			
+			send(Collections.singletonList(payment2), quoteClient);
+			
+			//--- send both in one message:
+			send(Stream.of(payment, payment2).collect(Collectors.toList()), quoteClient);
+			
 		};
+	}
+
+	private void send(List<Payment> paymentList, SOAPClient quoteClient) {
+		SendPaymentsResponse response = quoteClient.sendPayments(paymentList , BigInteger.ONE, BigInteger.ONE);
+		System.out.println("Status: " + response.getStatus());
+		System.out.println("Error description: " + response.getErrorDescription());
 	}
 
 }

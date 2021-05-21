@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
-public class CountryConfiguration {
+public class SOAPConfiguration {
 
 	@Bean
 	public Jaxb2Marshaller marshaller() {
@@ -18,8 +18,8 @@ public class CountryConfiguration {
 	}
 
 	@Bean
-	public CountryClient countryClient(Jaxb2Marshaller marshaller) {
-		CountryClient client = new CountryClient();
+	public SOAPClient countryClient(Jaxb2Marshaller marshaller) {
+		SOAPClient client = new SOAPClient();
 		client.setDefaultUri("http://localhost:8080/ws");
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);
