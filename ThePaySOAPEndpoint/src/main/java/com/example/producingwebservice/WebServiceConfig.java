@@ -21,22 +21,21 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 	// --- Put this URI to payments.xsd !!!
 	static final String DEMO_URI = "https://www.thepay.cz/sender-demo-gate/api/payments-sent-api-demo.wsdl";
-	static final String URI = "https://www.thepay.cz/sender-demo-gate/api/payments-sent-api.wsdl";
+	//static final String URI = "https://www.thepay.cz/sender-demo-gate/api/payments-sent-api.wsdl";
 
-	@Bean
-	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet2(
-			ApplicationContext applicationContext) {
-		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-		servlet.setApplicationContext(applicationContext);
-		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean<>(servlet, "/ws/*");
-	}
-
-	@Bean
-	public MessageDispatcherServlet messageDispatcherServlet(ApplicationContext applicationContext) {
-
-		return new ThePayMessageDispatcherServlet(applicationContext);
-	}
+	/*
+	 * @Bean public ServletRegistrationBean<MessageDispatcherServlet>
+	 * messageDispatcherServlet2( ApplicationContext applicationContext) {
+	 * MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+	 * servlet.setApplicationContext(applicationContext);
+	 * servlet.setTransformWsdlLocations(true); return new
+	 * ServletRegistrationBean<>(servlet, "/ws/*"); }
+	 * 
+	 * @Bean public MessageDispatcherServlet
+	 * messageDispatcherServlet(ApplicationContext applicationContext) {
+	 * 
+	 * return new ThePayMessageDispatcherServlet(applicationContext); }
+	 */
 
 	@Bean(name = "payments")
 	public Wsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
