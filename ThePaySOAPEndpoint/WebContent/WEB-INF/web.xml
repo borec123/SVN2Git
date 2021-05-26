@@ -16,7 +16,7 @@
 
 	<servlet>
 		<servlet-name>ThePayMessageDispatcherServlet</servlet-name>
-		<servlet-class>com.example.producingwebservice.ThePayMessageDispatcherServlet</servlet-class>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextClass</param-name>
 			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
